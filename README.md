@@ -2,7 +2,7 @@
 
 Your intelligent AI assistant for Node.js package management
 
-NodeMate is an AI-powered CLI tool that revolutionizes how you discover, evaluate, and install packages from NPM. Say goodbye to dependency hell and hello to smart, context-aware package recommendations for Express, NestJS, and vanilla Node.js projects.
+NodeMate is an AI-powered CLI tool that revolutionizes how you discover, evaluate, and install packages from NPM. Say goodbye to dependency hell and hello to smart, context-aware package recommendations for Express, NestJS, React, Next.js, and vanilla Node.js projects.
 
 ## 🚀 Installation
 
@@ -185,7 +185,7 @@ NodeMate supports multiple AI providers:
 
 NodeMate automatically analyzes your project:
 
-- **Framework**: Express.js, NestJS, vanilla Node.js
+- **Framework**: Express.js, NestJS, React.js, Next.js, vanilla Node.js
 - **Package Manager**: npm, pnpm, yarn
 - **TypeScript**: Configuration and support
 - **Dependencies**: Current packages and versions

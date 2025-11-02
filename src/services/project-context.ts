@@ -43,6 +43,16 @@ export class ProjectContextService {
   private detectFramework(packageJson: any): ProjectContext['framework'] {
     const dependencies = { ...packageJson.dependencies, ...packageJson.devDependencies };
     
+    // Check for Next.js (should be checked before React)
+    if (dependencies['next']) {
+      return 'nextjs';
+    }
+    
+    // Check for React
+    if (dependencies['react']) {
+      return 'react';
+    }
+    
     // Check for NestJS
     if (dependencies['@nestjs/core'] || dependencies['@nestjs/common']) {
       return 'nestjs';
@@ -150,6 +160,8 @@ export class ProjectContextService {
     const frameworkName = {
       express: 'Express.js',
       nestjs: 'NestJS',
+      react: 'React.js',
+      nextjs: 'Next.js',
       vanilla: 'Vanilla Node.js',
       unknown: 'Unknown framework'
     }[context.framework];

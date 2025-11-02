@@ -107,6 +107,8 @@ Provide step-by-step resolution instructions using ${context.packageManager}.`;
     const names = {
       express: 'Express.js',
       nestjs: 'NestJS',
+      react: 'React.js',
+      nextjs: 'Next.js',
       vanilla: 'Vanilla Node.js',
       unknown: 'Unknown framework'
     };
@@ -131,6 +133,26 @@ This is a NestJS project. Prioritize packages with:
 - Official @nestjs/* packages when available
 - TypeScript-first design
 - Support for NestJS modules and providers`;
+
+      case 'react':
+        return `FRAMEWORK CONTEXT - React.js:
+This is a React.js project. Prioritize packages with:
+- React component compatibility
+- Hook support (React 16.8+)
+- JSX/TSX support
+- React ecosystem integration
+- Frontend/client-side focus
+- Build tool compatibility (Webpack, Vite, etc.)`;
+
+      case 'nextjs':
+        return `FRAMEWORK CONTEXT - Next.js:
+This is a Next.js project. Prioritize packages with:
+- Next.js compatibility
+- SSR/SSG support
+- API routes compatibility
+- React 18+ features
+- Full-stack capabilities
+- Vercel deployment optimization`;
 
       case 'vanilla':
         return `FRAMEWORK CONTEXT - Vanilla Node.js:

@@ -42,7 +42,7 @@ export interface LLMResponse {
 }
 
 export interface ProjectContext {
-  framework: 'express' | 'nestjs' | 'vanilla' | 'unknown';
+  framework: 'express' | 'nestjs' | 'react' | 'nextjs' | 'vanilla' | 'unknown';
   packageManager: 'npm' | 'pnpm' | 'yarn';
   nodeVersion: string;
   hasTypeScript: boolean;
