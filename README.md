@@ -63,6 +63,9 @@ nodemate chat
 # Configure AI provider
 nodemate config
 
+# Update to latest version
+nodemate update
+
 # Get help
 nodemate --help
 

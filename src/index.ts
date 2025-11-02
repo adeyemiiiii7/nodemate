@@ -4,6 +4,7 @@ import { Logger } from './utils/logger';
 import { WELCOME_MESSAGE, FIRST_TIME_SETUP } from './constants/messages';
 import { configCommand } from './commands/config';
 import { chatCommand } from './commands/chat';
+import { updateCommand } from './commands/update';
 
 const program = new Command();
 
@@ -31,6 +32,14 @@ async function main() {
         process.exit(1);
       }
       await chatCommand();
+    });
+
+  // Update command
+  program
+    .command('update')
+    .description('Update NodeMate to the latest version')
+    .action(async () => {
+      await updateCommand();
     });
 
   // Default action when no command is provided
