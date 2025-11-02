@@ -1,12 +1,12 @@
 {
-  "name": "@adeyemi05/nodemate",
+  "name": "@adeyemi05/node-ai-mate",
   "version": "1.0.0",
   "description": "AI-powered CLI assistant for Node.js package management supporting Express, NestJS, and vanilla Node.js projects with multiple LLM providers",
   "main": "dist/index.js",
   "type": "module",
   "bin": {
-    "nodemate": "bin/nodemate.js",
-    "nm": "bin/nodemate.js"
+    "nodemate": "./bin/nodemate.js",
+    "nm": "./bin/nodemate.js"
   },
   "scripts": {
     "build": "tsup",
