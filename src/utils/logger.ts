@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { TextFormatter } from './text-formatter';
 
 export class Logger {
   private static colorOutput = true;
@@ -23,8 +24,11 @@ export class Logger {
   }
 
   static error(message: string) {
-    const output = this.colorOutput ? chalk.red('❌ ') + message : `❌ ${message}`;
-    console.error(output);
+    if (this.colorOutput) {
+      console.error(TextFormatter.formatError(message));
+    } else {
+      console.error(`❌ ${message}`);
+    }
   }
 
   static debug(message: string) {
@@ -40,8 +44,16 @@ export class Logger {
   }
 
   static ai(message: string) {
-    const output = this.colorOutput ? chalk.cyan('🤖 ') + message : `🤖 ${message}`;
-    console.log(output);
+    if (this.colorOutput) {
+      console.log(''); // Add spacing before AI response
+      console.log(chalk.cyan.bold('🤖 NodeMate:'));
+      console.log(TextFormatter.separator('─'));
+      console.log(TextFormatter.formatAIResponse(message));
+      console.log(TextFormatter.separator('─'));
+      console.log(''); // Add spacing after AI response
+    } else {
+      console.log(`🤖 ${message}`);
+    }
   }
 
   static user(message: string) {
