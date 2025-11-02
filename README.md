@@ -11,7 +11,12 @@ NodeMate is an AI-powered CLI tool that revolutionizes how you discover, evaluat
 - Git
 - AI API key (OpenAI, Claude, Gemini, or Groq)
 
-### Install from Source
+### Option 1: Install from npm (Recommended)
+```bash
+npm install -g @adeyemi05/nodemate
+```
+
+### Option 2: Install from Source
 ```bash
 # Clone the repository
 git clone <repository-url> nodemate
