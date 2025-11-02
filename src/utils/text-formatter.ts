@@ -11,50 +11,51 @@ export class TextFormatter {
     const lines = text.split('\n');
     const formattedLines: string[] = [];
     let inCodeBlock = false;
-    let codeLanguage = '';
 
     for (let line of lines) {
-      // Handle code blocks
+      // Handle code blocks with simpler formatting
       if (line.startsWith('```')) {
         if (!inCodeBlock) {
           // Starting code block
-          codeLanguage = line.slice(3).trim();
+          const language = line.slice(3).trim();
           inCodeBlock = true;
-          formattedLines.push(chalk.gray('┌─ Code ') + chalk.yellow(codeLanguage || 'text') + chalk.gray(' ─'.repeat(Math.max(0, this.MAX_WIDTH - 15 - (codeLanguage?.length || 0)))));
+          formattedLines.push('');
+          formattedLines.push(chalk.cyan(`--- ${language || 'Code'} ---`));
         } else {
           // Ending code block
           inCodeBlock = false;
-          formattedLines.push(chalk.gray('└' + '─'.repeat(this.MAX_WIDTH - 1)));
+          formattedLines.push(chalk.cyan('--- End ---'));
+          formattedLines.push('');
         }
         continue;
       }
 
       if (inCodeBlock) {
-        // Format code lines
-        formattedLines.push(chalk.gray('│ ') + chalk.green(line));
+        // Format code lines with simple indentation
+        formattedLines.push(chalk.green('  ' + line));
         continue;
       }
 
-      // Handle headers
+      // Handle headers with simpler formatting
       if (line.startsWith('# ')) {
         formattedLines.push('');
-        formattedLines.push(chalk.bold.blue('🔹 ' + line.slice(2)));
-        formattedLines.push(chalk.gray('─'.repeat(Math.min(line.length, this.MAX_WIDTH))));
+        formattedLines.push(chalk.bold.blue('=== ' + line.slice(2).toUpperCase() + ' ==='));
+        formattedLines.push('');
         continue;
       }
 
       if (line.startsWith('## ')) {
         formattedLines.push('');
-        formattedLines.push(chalk.bold.cyan('▸ ' + line.slice(3)));
+        formattedLines.push(chalk.bold.cyan('>> ' + line.slice(3)));
         continue;
       }
 
       if (line.startsWith('### ')) {
-        formattedLines.push(chalk.bold.white('  • ' + line.slice(4)));
+        formattedLines.push(chalk.bold.white('  * ' + line.slice(4)));
         continue;
       }
 
-      // Handle lists
+      // Handle lists with simple bullets
       if (line.match(/^\s*[-*+]\s/)) {
         const indent = line.match(/^\s*/)?.[0] || '';
         const content = line.replace(/^\s*[-*+]\s/, '');
@@ -72,8 +73,8 @@ export class TextFormatter {
         }
       }
 
-      // Handle inline code
-      line = line.replace(/`([^`]+)`/g, (_, code) => chalk.bgGray.black(` ${code} `));
+      // Handle inline code with simpler formatting
+      line = line.replace(/`([^`]+)`/g, (_, code) => chalk.cyan(`[${code}]`));
 
       // Handle bold text
       line = line.replace(/\*\*([^*]+)\*\*/g, (_, text) => chalk.bold(text));
@@ -81,18 +82,8 @@ export class TextFormatter {
       // Handle emphasis
       line = line.replace(/\*([^*]+)\*/g, (_, text) => chalk.italic(text));
 
-      // Handle checkmarks and crosses
-      line = line.replace(/✅/g, chalk.green('✅'));
-      line = line.replace(/❌/g, chalk.red('❌'));
-      line = line.replace(/⚠️/g, chalk.yellow('⚠️'));
-
-      // Wrap long lines
-      if (line.length > this.MAX_WIDTH) {
-        const wrapped = this.wrapText(line, this.MAX_WIDTH);
-        formattedLines.push(...wrapped);
-      } else {
-        formattedLines.push(line);
-      }
+      // Add the line as-is (with any formatting applied)
+      formattedLines.push(line);
     }
 
     return formattedLines.join('\n');
@@ -158,7 +149,7 @@ export class TextFormatter {
   /**
    * Create a separator line
    */
-  static separator(char: string = '─', width?: number): string {
+  static separator(char: string = '-', width?: number): string {
     const w = width || Math.min(this.TERMINAL_WIDTH - 4, 60);
     return chalk.gray(char.repeat(w));
   }
@@ -169,9 +160,9 @@ export class TextFormatter {
   static formatError(message: string): string {
     const lines = [
       '',
-      chalk.red('┌─ Error ') + chalk.gray('─'.repeat(this.MAX_WIDTH - 10)),
-      chalk.red('│ ') + message,
-      chalk.red('└') + chalk.gray('─'.repeat(this.MAX_WIDTH - 1)),
+      chalk.red('=== ERROR ==='),
+      chalk.red(message),
+      chalk.red('============='),
       ''
     ];
     return lines.join('\n');
